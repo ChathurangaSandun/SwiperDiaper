@@ -5,11 +5,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener,
+        GestureDetector.OnDoubleTapListener {
+
+    TextView display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        display = (TextView) findViewById(R.id.displey );
+
+
+
     }
 
     @Override
@@ -49,4 +61,62 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //gesture  start
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        display.setText("onSingleTapConfirmed");
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        display.setText("onDoubleTap");
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        display.setText("onDoubleTapEvent");
+        return true;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+
+        display.setText("onDown");
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+        display.setText("onShowPress");
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+
+        display.setText("onSingleTapUp");
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        display.setText("onScroll");
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        display.setText("onLongPress");
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        display.setText("onFling");
+        return true;
+    }
+
+    //gesture end
 }
