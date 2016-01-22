@@ -3,8 +3,10 @@ package com.clivekumara.swiperdiaper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         GestureDetector.OnDoubleTapListener {
 
     TextView display;
+    GestureDetectorCompat detectorCompat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
 
         display = (TextView) findViewById(R.id.displey );
+        detectorCompat = new GestureDetectorCompat(this,this); // this is detect desture events
+        detectorCompat.setOnDoubleTapListener(this); //to double tap
 
 
 
@@ -63,6 +68,13 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     //gesture  start
+
+    // this is use for get every user touch events
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        detectorCompat.onTouchEvent(event);//set gestures to touch events(bind gesture events to touch event)
+        return super.onTouchEvent(event);
+    }
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -114,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        Log.d("gesture",String.valueOf(velocityX)+" "+String.valueOf(velocityY));
         display.setText("onFling");
         return true;
     }
